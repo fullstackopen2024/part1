@@ -11,33 +11,71 @@ const Button = ({handleClick, text}) => {
 
 }
 
-const Display = ({feedback, value}) => {
+const Display = ({feedback, value, suffixText}) => {
     return (
-        <div>{feedback} : {value}</div>
+        <div>{feedback} : {value}{suffixText}</div>
     )
 }
+
 
 
 function App() {
     const [good, setGood] = useState(0)
     const [neutral, setNeutral] = useState(0)
     const [bad, setBad] = useState(0)
+    const [all, setAll] = useState(0)
+    const [average, setAverage] = useState(0)
+    const [positive, setPositive] = useState(0)
+
+    const handleGoodClick = () => {
+        let updatedGood = good + 1;
+        let updatedAll = updatedGood + neutral + bad;
+        let updatedPositive = updatedGood / updatedAll * 100;
+
+        setGood(updatedGood)
+        setAll(updatedAll)
+        setAverage((updatedGood - bad) / updatedAll)
+        setPositive(updatedPositive);
+    }
+
+    const handleBadClick = () => {
+        let updatedBadClick = bad + 1;
+        let updatedAll = good + neutral + updatedBadClick;
+        let updatedPositive = good / updatedAll * 100;
+
+        setBad(updatedBadClick)
+        setAll(updatedAll)
+        setAverage((good - updatedBadClick) / updatedAll)
+        setPositive(updatedPositive);
+    }
+
+    const handleNeutralClick = () => {
+        let updatedNeutral = neutral + 1;
+        let updatedAll = good + updatedNeutral + bad;
+        let updatedPositive = good / updatedAll * 100;
+
+        setNeutral(updatedNeutral)
+        setAll(updatedAll)
+        setAverage((good - bad) / updatedAll)
+        setPositive(updatedPositive);
+    }
 
     const handleClick = (feedback) => {
         switch (feedback) {
             case 'good':
-                setGood(good + 1)
+                handleGoodClick();
                 break
             case 'neutral':
-                setNeutral(neutral + 1)
+                handleNeutralClick()
                 break
             case 'bad':
-                setBad(bad + 1)
+                handleBadClick()
                 break
             default:
                 break
         }
     }
+
 
     return (
         <>
@@ -49,6 +87,9 @@ function App() {
             <Display feedback="good" value={good}/>
             <Display feedback="neutral" value={neutral}/>
             <Display feedback="bad" value={bad}/>
+            <Display feedback="all" value={all}/>
+            <Display feedback="average" value={average}/>
+            <Display feedback="positive" value={positive} suffixText="%"/>
         </>
     )
 }
