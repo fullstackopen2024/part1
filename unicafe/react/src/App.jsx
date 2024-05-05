@@ -11,9 +11,9 @@ const Button = ({handleClick, text}) => {
 
 }
 
-const Display = ({feedback, value, suffixText}) => {
+const StatisticLine = ({text, value, suffixText}) => {
     return (
-        <div>{feedback} : {value}{suffixText}</div>
+        <div>{text} : {value}{suffixText}</div>
     )
 }
 
@@ -24,12 +24,12 @@ const Statistics = ({good, neutral, bad, all, average, positive}) => {
             {all > 0
                 ? (
                     <>
-                        <Display feedback="good" value={good}/>
-                        <Display feedback="neutral" value={neutral}/>
-                        <Display feedback="bad" value={bad}/>
-                        <Display feedback="all" value={all}/>
-                        <Display feedback="average" value={average}/>
-                        <Display feedback="positive" value={positive} suffixText="%"/>
+                        <StatisticLine text="good" value={good}/>
+                        <StatisticLine text="neutral" value={neutral}/>
+                        <StatisticLine text="bad" value={bad}/>
+                        <StatisticLine text="all" value={all}/>
+                        <StatisticLine text="average" value={average}/>
+                        <StatisticLine text="positive" value={positive} suffixText="%"/>
                     </>
                 )
                 : (
