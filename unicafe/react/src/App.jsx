@@ -17,15 +17,28 @@ const Display = ({feedback, value, suffixText}) => {
     )
 }
 
-const Statistics = ({all, average, positive}) => {
+const Statistics = ({good, neutral, bad, all, average, positive}) => {
     return (
         <>
-            <Display feedback="all" value={all}/>
-            <Display feedback="average" value={average}/>
-            <Display feedback="positive" value={positive} suffixText="%"/>
+            <h1>statistics</h1>
+            {all > 0
+                ? (
+                    <>
+                        <Display feedback="good" value={good}/>
+                        <Display feedback="neutral" value={neutral}/>
+                        <Display feedback="bad" value={bad}/>
+                        <Display feedback="all" value={all}/>
+                        <Display feedback="average" value={average}/>
+                        <Display feedback="positive" value={positive} suffixText="%"/>
+                    </>
+                )
+                : (
+                    <>
+                        <div>No feedback given</div>
+                    </>
+                )}
         </>
     )
-
 }
 
 
@@ -93,11 +106,7 @@ function App() {
             <Button text="good" handleClick={() => handleClick('good')}></Button>
             <Button text="neutral" handleClick={() => handleClick('neutral')}></Button>
             <Button text="bad" handleClick={() => handleClick('bad')}></Button>
-            <p/>
-            <Display feedback="good" value={good}/>
-            <Display feedback="neutral" value={neutral}/>
-            <Display feedback="bad" value={bad}/>
-            <Statistics all={all} positive={positive} average={average}/>
+            <Statistics all={all} average={average} good={good} bad={bad} positive={positive} neutral={neutral}/>
         </>
     )
 }
