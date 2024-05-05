@@ -17,6 +17,16 @@ const Display = ({feedback, value, suffixText}) => {
     )
 }
 
+const Statistics = ({all, average, positive}) => {
+    return (
+        <>
+            <Display feedback="all" value={all}/>
+            <Display feedback="average" value={average}/>
+            <Display feedback="positive" value={positive} suffixText="%"/>
+        </>
+    )
+
+}
 
 
 function App() {
@@ -87,9 +97,7 @@ function App() {
             <Display feedback="good" value={good}/>
             <Display feedback="neutral" value={neutral}/>
             <Display feedback="bad" value={bad}/>
-            <Display feedback="all" value={all}/>
-            <Display feedback="average" value={average}/>
-            <Display feedback="positive" value={positive} suffixText="%"/>
+            <Statistics all={all} positive={positive} average={average}/>
         </>
     )
 }
